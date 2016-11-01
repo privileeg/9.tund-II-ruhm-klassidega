@@ -1,7 +1,10 @@
 <?php
 
 	require("functions.php");
-	
+	require("Car.class.php");
+	require("Renting.class.php");
+	$Car = new Car($mysqli);
+
 	//kui ei ole kasutaja id'd
 	if (!isset($_SESSION["userId"])){
 		
@@ -40,7 +43,7 @@
 		 !empty($_POST["plate"])
 		)
 		
-		savecar(cleanInput($_POST["color"]), cleanInput($_POST["plate"]));
+		$Car->save($Helper->cleanInput($_POST["color"]), $Helper->cleanInput($_POST["plate"]));
 		
 	//saan auto andmed
 	
@@ -49,25 +52,53 @@
 	var_dump($carData);	
 	echo "</pre>";
 	
+	
+	
 	$wishError="";
-	$locationError="";
+	$LocationError="";
 	$telephoneError="";
 	$wish="";
 	$location="";
 	$telephone="";
 	
-	if(empty($_POST["wish"])){
-			$wishError = "Mida laenutada soovid?";	
-		}
+	
+	if(isset($_POST["wish"])){
+		
+		if(empty($_POST["wish"])){
+			
+			$wishError = "Required field";
+		
+		}else{
+			
+			$wish = $_POST["wish"];
+		}	
+	}
 
-	if(empty($_POST["location"])){
-			$locationError = "What is your location?";			
-		}
+	if(isset($_POST["location"])){
+		
+		if(empty($_POST["location"])){
+			
+			$LocationError = "Required field";
+		
+		}else{
+			
+			$Location = $_POST["location"];
+		}	
+	}
 
-	if(empty($_POST["telephone"])){
-			$telephoneError = "Please add your telephone number";			
-		}
+	if(isset($_POST["telephone"])){
+		
+		if(empty($_POST["telephone"])){
+			
+			$telephoneError = "Required field";
+		
+		}else{
+			
+			$telephone = $_POST["telephone"];
+		}	
+	}
 
+	
 	if ( isset($_POST["wish"]) && 
 		 isset($_POST["location"]) && 
 		 isset($_POST["telephone"]) && 
@@ -76,7 +107,7 @@
 		 !empty($_POST["telephone"])
 		)
 		
-		$renting->renting(cleanInput($_POST["wish"]), cleanInput($_POST["location"]), cleanInput($_POST["telephone"]));
+		$renting->renting($Helper->cleanInput($_POST["wish"]), $Helper->cleanInput($_POST["location"]), $Helper->cleanInput($_POST["telephone"]));
 
 	//saan andmed laenutatud asjade kohta
 	
@@ -100,16 +131,21 @@
 </p> 
 
 
+<style>
+.error {color: #FF0000;font-size:14px}
+</style>
 
 
-
-<form method="POST">
+<form method="post">
 
 			<h2>What would you like to borrow ?</h2>
-
-			<input name="wish" placeholder="Enter your wish" type="text"> <br><br>
-			<input name="location" placeholder="Location" type="text"> <br><br>
-			<input name="telephone" placeholder="Telephone number" type="text"> <br><br>
+			
+			<input name="wish" placeholder="Enter your wish" type="text"><span class="error"><?php echo $wishError;?></span>
+			<br><br>
+			<input name="location" placeholder="Location" type="text"><span class="error"><?php echo $LocationError;?></span>
+			<br><br>		
+			<input name="telephone" placeholder="Telephone number" type="text"><span class="error"><?php echo $telephoneError;?></span>
+			<br><br>
 			<input type="submit" value="Submit" style="background-color: #555; color: #fff; border-radius: #10px"> 
 
 </form>
@@ -119,7 +155,8 @@
 
 
 
-<center><h3>Borrowed things</h3>
+<center>
+<h3>Borrowed things</h3>
 <?php
 	$html = "<table border='1'>";
 	
@@ -156,11 +193,28 @@
 	echo $listHtml
 	*/
 ?>
+
+<h2>Salvesta auto</h2>
+<form method="POST">
+	
+	<label>Auto nr</label><br>
+	<input name="plate" type="text">
+	<br><br>
+	
+	<label>Auto värv</label><br>
+	<input type="color" name="color" >
+	<br><br>
+	
+	<input type="submit" value="Salvesta">
+	
+	
+</form>
+	
 	
 <h2>Salvestatud autod</h2>-
 </html>
 <?php
-	
+
 	$html = "<table>";
 	
 	$html .= "<tr>";
@@ -178,7 +232,7 @@
 			$html .= "<td>".$c->plate."</td>";
 			$html .= "<td>".$c->carcolor."</td>"; // v6i style='background-color:"$c->carcolor."'
 		
-		$html .= "<td><a href='edit.php?id=".$c->id."'>edit.php</a></td>";
+		$html .= "<td><a href='edit.php?id=".$c->id."'>EDIT</a></td>";
 		$html .= "</tr>";
 	}
 

@@ -10,6 +10,21 @@
 	
 	/*TEISED FUNKTSIOONID*/
 	
+	function delete($id){
+		$stmt = $this->connection->prepare("UPDATE cars_color SET deleted=NOW() WHERE id=? AND deleted IS NULL");
+		$stmt->bind_param("i",$id);
+		
+		// kas õnnestus salvestada
+		if($stmt->execute()){
+			// õnnestus
+			echo "kustutamine õnnestus!";
+		}
+		
+		$stmt->close();
+		
+		
+	}
+	
 	function save($color, $plate){
 	
 	
@@ -68,5 +83,50 @@
 		
 	}
 	
+	function getSingle($edit_id){
+		$stmt = $this->connection->prepare("SELECT plate, color FROM cars_color WHERE id=? AND deleted IS NULL");
+		$stmt->bind_param("i", $edit_id);
+		$stmt->bind_result($plate, $color);
+		$stmt->execute();
+		
+		//tekitan objekti
+		$car = new Stdclass();
+		
+		//saime ühe rea andmeid
+		if($stmt->fetch()){
+			// saan siin alles kasutada bind_result muutujaid
+			$car->plate = $plate;
+			$car->color = $color;
+			
+			
+		}else{
+			// ei saanud rida andmeid kätte
+			// sellist id'd ei ole olemas
+			// see rida võib olla kustutatud
+			header("Location: data.php");
+			exit();
+		}
+		
+		$stmt->close();
+		
+		
+		return $car;
+		
+	}
 	
+	function update($id, $plate, $color){
+    	
+		$stmt = $this->connection->prepare("UPDATE cars_color SET plate=?, color=? WHERE id=? AND deleted IS NULL");
+		$stmt->bind_param("ssi",$plate, $color, $id);
+		
+		// kas õnnestus salvestada
+		if($stmt->execute()){
+			// õnnestus
+			echo "salvestus õnnestus!";
+		}
+		
+		$stmt->close();
+		
+		
+	}
 }?>

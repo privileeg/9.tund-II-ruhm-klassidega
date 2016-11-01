@@ -1,8 +1,8 @@
 <?php
 
 	require("functions.php");
-	
-
+	require("User.class.php");
+	$User = new User($mysqli);
 	
 	//kui on juba sisse loginud, siis suunan DATA lehele
 	if (isset($_SESSION["userId"])){
@@ -199,18 +199,22 @@
 		
 	</form>
 
+<style>
+.error {color: #FF0000;font-size:14px}
+</style>
+
 	
 	<h2>Register</h2>
 	
 	<form method="POST">
 		
-		<input name="signupEmail" placeholder="E-mail" type="text" value="<?=$signupEmail;?>"> <?php echo $signupEmailError; ?> <br><br>
+		<input name="signupEmail" placeholder="E-mail" type="text" value="<?=$signupEmail;?>"><span class="error"><?php echo $signupEmailError; ?></span> <br><br>
 		
-		<input name="signupPassword" placeholder="Password" type="password"> <?php echo $signupPasswordError; ?> <br><br>
+		<input name="signupPassword" placeholder="Password" type="password"><span class="error"> <?php echo $signupPasswordError; ?></span> <br><br>
 		
-		<input name="signupName" placeholder="First name" type="text"> <?php echo $signupNameError; ?> <br><br>
+		<input name="signupName" placeholder="First name" type="text"><span class="error"> <?php echo $signupNameError; ?></span> <br><br>
 		
-		<input name="signupFamily" placeholder="Family name" type="text"> <?php echo $signupFamilyError; ?> <br><br>
+		<input name="signupFamily" placeholder="Family name" type="text"><span class="error"> <?php echo $signupFamilyError; ?></span> <br><br>
 		
 		<h4>Gender</h4>
 		

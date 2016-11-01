@@ -18,9 +18,9 @@
 		
 	
 		
-		$stmt = $$this->connection->prepare("INSERT INTO user_sample2 (email, password, name, family) VALUES (?, ?, ?, ?)");
+		$stmt = $this->connection->prepare("INSERT INTO user_sample2 (email, password, name, family) VALUES (?, ?, ?, ?)");
 		
-		echo $$this->connection->error;
+		echo $this->connection->error;
 
 		$stmt->bind_param("ssss", $email, $password, $name, $family);
 		
@@ -32,7 +32,7 @@
 		}
 		
 		$stmt->close();
-		$$this->connection->close();
+		$this->connection->close();
 	
 	}
 	

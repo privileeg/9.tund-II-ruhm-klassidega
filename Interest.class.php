@@ -32,7 +32,7 @@
 		
 	}
 	
-	function getAll() {
+	function get() {
 		
 		
 		$stmt = $this->connection->prepare("SELECT id, interest FROM interests");
@@ -65,7 +65,7 @@
 		
 		return $result;
 	}
-	function getAllUser() {
+	function getUser() {
 		
 			
 		$stmt = $this->connection->prepare("SELECT interest FROM interests JOIN user_interests
@@ -124,6 +124,7 @@
 		$stmt = $this->connection->prepare("INSERT into user_interests (user_id, interest_id) VALUES (?, ?)");
 		$stmt->bind_param("ii", $_SESSION["userId"], $interest);
 		
+		
 		if($stmt->execute()) {	
 			echo "saved";	
 		} else {
@@ -135,5 +136,21 @@
 		
 		
 	}
+	function save($interest) {
+		$stmt = $this->connection->prepare("INSERT INTO interests (interest) VALUES (?)");
 	
+		echo $this->connection->error;
+		
+		$stmt->bind_param("s", $interest);
+		
+		if($stmt->execute()) {
+			echo "salvestamine õnnestus";
+		} else {
+		 	echo "ERROR ".$stmt->error;
+		}
+		
+		$stmt->close();
+		
+		
+	}
 }?>

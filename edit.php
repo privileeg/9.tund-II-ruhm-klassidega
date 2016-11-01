@@ -5,13 +5,14 @@
  	//edit.php
  	require("functions.php");
  	require("editFunctions.php");
- 	
+ 	require("Car.class.php");
+
 	
 	
  	//kas kasutaja uuendab andmeid
  	if(isset($_POST["update"])){
  		
- 		updateCar(cleanInput($_POST["id"]), cleanInput($_POST["plate"]), cleanInput($_POST["color"]));
+ 		$Car->update($Helper->cleanInput($_POST["id"]), $Helper->cleanInput($_POST["plate"]), $Helper->cleanInput($_POST["color"]));
  		
  		header("Location: edit.php?id=".$_POST["id"]."&success=true");
          exit();	
@@ -20,11 +21,11 @@
  	//kustutan
 	if(isset($_GET["delete"])){
  		
- 		DeleteCar($_GET["id"]);
+ 		$Car->delete($_GET["id"]);
  	
-	
-	
- 		
+		header("Location: data.php");
+		exit();
+		
  	}
 	
  	//saadan kaasa id
@@ -35,21 +36,16 @@
 		
 	}
 	
- 	$c = getSingleCarData($_GET["id"]);
+ 	$c = $Car->getSingle($_GET["id"]);
  	//var_dump($c);
 	
 	
-	if(isset($_GET["id"])){
+	if(isset($_GET["success"])){
 		echo "Salvestamine õnnestus";
 	}
 	
-	if(!isset($_GET["id"])){
-		echo "Error";
-	}
- 
- 	
-	
-	
+
+
 	
 	
  ?>
