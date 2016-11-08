@@ -1,6 +1,6 @@
 <?php
 	
-	require("../../config.php");
+	require("/home/andralla/config.php");
 	
 	session_start();
 
@@ -8,19 +8,19 @@
 	$mysqli = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
 	
 
-	require("User.class.php");
+	require("class/User.class.php");
 	$User = new User($mysqli);
 	
-	require("Interest.class.php");
+	require("class/Interest.class.php");
 	$Interest = new Interest($mysqli);
 	
-	require("Helper.class.php");
+	require("class/Helper.class.php");
 	$Helper = new Helper($mysqli);
 	
-	require("Car.class.php");	
+	require("class/Car.class.php");	
 	$Car = new Car($mysqli);
 	
-	require("Renting.class.php");	
-	$Renting = new Renting($mysqli);
+	//require("Renting.class.php");	
+	//$Renting = new Renting($mysqli);
 
 ?>
