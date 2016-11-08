@@ -1,7 +1,7 @@
 <?php
 
 	require("functions.php");
-	require("User.class.php");
+	
 	$User = new User($mysqli);
 	
 	//kui on juba sisse loginud, siis suunan DATA lehele
@@ -126,7 +126,7 @@
 		
 		//echo $serverUsername;
 		// KASUTAN FUNKTSIOONI
-		$User->signup($signupEmail, $password, $signupName, $signupFamily);
+		$User->signUp($signupEmail, $password, $signupName, $signupFamily);
 		
 		/*
 		ÜHENDUS

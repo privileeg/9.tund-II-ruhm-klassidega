@@ -1,15 +1,14 @@
 <?php
 
 	require("functions.php");
-	require("Car.class.php");
-	require("Renting.class.php");
+
 	$Car = new Car($mysqli);
 
 	//kui ei ole kasutaja id'd
 	if (!isset($_SESSION["userId"])){
 		
 			//suunan sisselogimise lehele
-			header("location: login.php");
+			header("Location: login.php");
 			exit(); //headerist ainult ei piisa, sest kood k2ivitatakse edasi ikkagi, aga exit'iga mitte
 	}
 	
@@ -105,17 +104,17 @@
 		 !empty($_POST["wish"]) &&
 		 !empty($_POST["location"]) &&
 		 !empty($_POST["telephone"])
-		)
-		
-		$renting->renting($Helper->cleanInput($_POST["wish"]), $Helper->cleanInput($_POST["location"]), $Helper->cleanInput($_POST["telephone"]));
-
-	//saan andmed laenutatud asjade kohta
+	);	
 	
+	$Renting->renting($Helper->cleanInput($_POST["wish"]), $Helper->cleanInput($_POST["location"]), $Helper->cleanInput($_POST["telephone"]));
+
 	$loanData = $Renting->get();
 	echo "<pre>";
 	var_dump($loanData);	
 	echo "</pre>";		
-		
+
+
+	
 ?>
 
 <center>

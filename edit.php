@@ -4,8 +4,8 @@
 <?php
  	//edit.php
  	require("functions.php");
- 	require("editFunctions.php");
- 	require("Car.class.php");
+ 	
+ 	
 
 	
 	

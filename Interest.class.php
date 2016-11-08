@@ -136,21 +136,5 @@
 		
 		
 	}
-	function save($interest) {
-		$stmt = $this->connection->prepare("INSERT INTO interests (interest) VALUES (?)");
-	
-		echo $this->connection->error;
-		
-		$stmt->bind_param("s", $interest);
-		
-		if($stmt->execute()) {
-			echo "salvestamine õnnestus";
-		} else {
-		 	echo "ERROR ".$stmt->error;
-		}
-		
-		$stmt->close();
-		
-		
-	}
+
 }?>

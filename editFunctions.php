@@ -1,8 +1,9 @@
 <?php
  
- 	require_once("../../config.php");
+ 	require("../../config.php");
  	
- 	function getSingleCarData($edit_id){
+	
+ 	function getSingle($edit_id){
      
          $database = "if16_andralla";
  
@@ -42,7 +43,7 @@
  	}
  
  
- 	function updateCar($id, $plate, $color){
+ 	function update($id, $plate, $color){
      	
          $database = "if16_andralla";
  
@@ -63,7 +64,7 @@
  		
  	}
 	
-	function DeleteCar($id){
+	function Delete($id){
      	
          $database = "if16_andralla";
  

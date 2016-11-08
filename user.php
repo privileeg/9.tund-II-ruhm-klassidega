@@ -1,7 +1,8 @@
 <?php 
 	
 	require("functions.php");
-	require("Interest.class.php");
+
+
 	//kui ei ole kasutaja id'd
 	$Interest = new Interest($mysqli);
 	if (!isset($_SESSION["userId"])){

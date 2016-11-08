@@ -2,15 +2,12 @@
 	
 	require("../../config.php");
 	
-	//Alustas sessiooni
 	session_start();
-	
-	//yhendus PEAB SIIN OLEMA 
+
 	$database = "if16_andralla";
 	$mysqli = new mysqli($serverHost, $serverUsername, $serverPassword, $database);
 	
 
-	//klassid	
 	require("User.class.php");
 	$User = new User($mysqli);
 	
@@ -25,17 +22,5 @@
 	
 	require("Renting.class.php");	
 	$Renting = new Renting($mysqli);
-	
 
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
 ?>
